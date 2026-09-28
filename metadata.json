@@ -1,0 +1,7 @@
+{
+  "name": "BounceFIN - Gestão financeira local e privada",
+  "description": "BounceFIN - Gestão financeira local e privada. Aplicativo simples, moderno e funcional de organização financeira pessoal: Salário, Contas Fixas Mensais Recorrentes, Calendário, Simulador e Planejamentos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
