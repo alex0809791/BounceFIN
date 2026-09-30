@@ -9,8 +9,8 @@ import {
   ShieldCheck,
   AlertCircle,
   CheckCircle2,
-  KeyRound,
   ArrowLeft,
+  Clock,
 } from 'lucide-react';
 import { BounceFinLogo } from './BounceFinLogo';
 
@@ -57,7 +57,7 @@ export const AuthView: React.FC = () => {
         }
       }
     } catch (err: any) {
-      setErrorMsg(err.message || 'Erro inesperado.');
+      setErrorMsg(err?.message || 'Erro inesperado.');
     } finally {
       setLoading(false);
     }
@@ -71,7 +71,7 @@ export const AuthView: React.FC = () => {
         setErrorMsg(res.error || 'Autenticação biométrica falhou.');
       }
     } catch (err: any) {
-      setErrorMsg(err.message || 'Erro na verificação biométrica.');
+      setErrorMsg(err?.message || 'Erro na verificação biométrica.');
     }
   };
 
@@ -178,9 +178,10 @@ export const AuthView: React.FC = () => {
                     className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:bg-white"
                   />
                 </div>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Sem documentos, sem CPF ou cartão de crédito.
-                </p>
+                <div className="flex items-center gap-1.5 text-[11px] text-emerald-700 font-semibold mt-1.5 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
+                  <Clock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                  <span>35 dias de teste grátis sem cartão de crédito ou CPF</span>
+                </div>
               </div>
             )}
 
@@ -237,7 +238,7 @@ export const AuthView: React.FC = () => {
 
             {mode === 'forgot' && (
               <p className="text-xs text-slate-500 leading-relaxed">
-                Informe o seu e-mail cadastrado. Enviaremos um link seguro pelo Supabase apontando para <strong>bouncefin.com.br</strong> para você redefinir sua senha com facilidade.
+                Informe o seu e-mail cadastrado. Enviaremos um link seguro pelo Supabase apontando para <strong>https://bouncefin.com.br</strong> para você redefinir sua senha com facilidade.
               </p>
             )}
 
