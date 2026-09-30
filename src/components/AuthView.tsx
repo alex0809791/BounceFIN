@@ -1,3 +1,8 @@
+O código que partilhou está excelente, completo e sintaticamente válido. O único detalhe que faz o build do Vite/Rolldown falhar são os espaços invisíveis de não-quebra (NBSP / \u00A0) que aparecem no início das linhas quando o código é copiado de editores rich-text.
+
+Para resolver de vez, abra o ficheiro src/components/AuthView.tsx, apague todo o conteúdo e cole a versão limpa abaixo:
+
+TypeScript
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import {
@@ -8,6 +13,7 @@ import {
   ArrowRight,
   ShieldCheck,
   AlertCircle,
+  TrendingUp,
 } from 'lucide-react';
 import { BounceFinLogo } from './BounceFinLogo';
 
