@@ -14,6 +14,8 @@ import {
   ShieldCheck,
   LogOut,
   Sparkles,
+  Clock,
+  QrCode,
 } from 'lucide-react';
 
 export const SettingsView: React.FC = () => {
@@ -24,6 +26,9 @@ export const SettingsView: React.FC = () => {
     registerBiometrics,
     isBiometricsAvailable,
     logout,
+    subscriptionStatus,
+    markSubscriptionActive,
+    resetTrial,
   } = useAuth();
   const { refreshData } = useFinance();
 
@@ -422,6 +427,69 @@ export const SettingsView: React.FC = () => {
             <Fingerprint className="w-4 h-4" />
             <span>{user?.hasBiometrics ? 'Reconfigurar Biometria' : 'Ativar Biometria'}</span>
           </button>
+        </div>
+      </div>
+
+      {/* Subscription & Trial Status Card */}
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-xs">
+        <h3 className="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <Sparkles className="w-5 h-5 text-emerald-600" />
+          Status da Assinatura & Período de Teste
+        </h3>
+        <p className="text-xs text-slate-500 mb-4">
+          O BounceFIN oferece 35 dias de uso gratuito para novos usuários sem exigir cartão de crédito.
+        </p>
+
+        <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-slate-900">
+                {subscriptionStatus.isSubscribed
+                  ? 'Assinatura Ativa (PIX)'
+                  : subscriptionStatus.isExpired
+                  ? 'Período de Teste Expirado'
+                  : 'Período de Teste Gratuito em Andamento'}
+              </span>
+              <span
+                className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                  subscriptionStatus.isSubscribed
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                    : subscriptionStatus.isExpired
+                    ? 'bg-rose-100 text-rose-800 border border-rose-200'
+                    : 'bg-amber-100 text-amber-800 border border-amber-200'
+                }`}
+              >
+                {subscriptionStatus?.isSubscribed
+                  ? 'Ativo'
+                  : `${subscriptionStatus?.trialDaysLeft ?? 35} dias restantes`}
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-1">
+              Cadastrado em: {subscriptionStatus?.registeredAt ? new Date(subscriptionStatus.registeredAt).toLocaleDateString('pt-BR') : 'Hoje'} • {subscriptionStatus?.isSubscribed ? 'Renovação sem cobranças ocultas via PIX.' : 'Ao término dos 35 dias, a renovação é feita via PIX por R$ 19,90.'}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            {!subscriptionStatus?.isSubscribed ? (
+              <button
+                type="button"
+                onClick={markSubscriptionActive}
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center gap-1.5 shrink-0 shadow-xs"
+              >
+                <QrCode className="w-3.5 h-3.5" />
+                <span>Ativar Assinatura PIX</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={resetTrial}
+                className="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-medium transition-colors"
+                title="Voltar para modo de teste"
+              >
+                Resetar Teste (35 dias)
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
