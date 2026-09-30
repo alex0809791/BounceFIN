@@ -64,6 +64,16 @@ export interface Planning {
   createdAt: string;
 }
 
+export interface SubscriptionStatus {
+  isTrial: boolean;
+  trialDaysTotal: number;
+  trialDaysLeft: number;
+  isExpired: boolean;
+  isSubscribed: boolean;
+  accessGranted: boolean;
+  registeredAt: string;
+}
+
 export interface UserProfile {
   id: string;
   email: string;
@@ -74,6 +84,9 @@ export interface UserProfile {
   createdAt: string;
   hasBiometrics?: boolean;
   biometricCredentialId?: string;
+  isSubscribed?: boolean;
+  subscriptionPlan?: string;
+  subscriptionExpiresAt?: string;
 }
 
 export type ActiveTab =
