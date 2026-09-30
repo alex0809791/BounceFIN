@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { supabase } from '../lib/supabase'; // Garante que o caminho para o cliente Supabase está correto
+import { supabase } from '../lib/supabase';
 import {
   Lock,
   Mail,
